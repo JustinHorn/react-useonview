@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { ExampleComponent } from 'react-useonview'
-import 'react-useonview/dist/index.css'
+import useOnView from 'react-useonview'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  const [visible, setVisible] = useState(false)
+
+  const trigger = useOnView(() => setVisible(true))
+
+  return (
+    <div>
+      <div style={{ height: '100vh' }}></div>
+      <div
+        ref={trigger}
+        style={{ opacity: visible ? '1' : '0', transition: '1s' }}
+      >
+        Hi!
+      </div>
+    </div>
+  )
 }
 
 export default App
