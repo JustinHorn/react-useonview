@@ -45,24 +45,53 @@ const App = () => {
 ## notes
 
 - the function will probably execute several times
+
 - does not care whether the element which has the ref attached is actually visible
-- you could also just use the code below
+
+- also executes when scrolled past element
+
+## Api
+
+| Parameter in order | Description                                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| doSth              | function that is executed when ref-element scrolled in or past view                                                 |
+| options            | json object for options                                                                                             |
+| condition          | function that is passed objectPageHeight and pageHeightLocation. Its boolish return can hold the execution of doSth |
+
+### options
+
+| name     | values  | default | description                                                      |
+| -------- | ------- | ------- | ---------------------------------------------------------------- |
+| fullView | boolean | false   | does the element needs to be fully loaded or only the beginning? |
+
+## License
+
+MIT © [JustinHorn](https://github.com/JustinHorn)
 
 ## whole code
 
 ```jsx
 import { useEffect, useRef } from 'react'
 
-const useOnView = (doSth) => {
+const useOnView = (
+  doSth,
+  options = {},
+  condition = () => {
+    return true
+  }
+) => {
   const viewTrigger = useRef()
 
   useEffect(() => {
     const func = function (e) {
       if (viewTrigger.current) {
-        const pageSize = window.innerHeight + window.pageYOffset
-        const heightOfObj = calcHeight(viewTrigger.current)
+        const pageHeightLocation = window.innerHeight + window.pageYOffset
+        const objectPageHeight = calcHeight(viewTrigger.current, options)
 
-        if (heightOfObj <= pageSize) {
+        if (
+          objectPageHeight <= pageHeightLocation &&
+          condition(objectPageHeight, pageHeightLocation)
+        ) {
           doSth()
         }
       }
@@ -75,8 +104,12 @@ const useOnView = (doSth) => {
   return viewTrigger
 }
 
-function calcHeight(obj) {
-  let top = obj.offsetTop + obj.clientHeight
+function calcHeight(obj, options) {
+  let top = obj.offsetTop
+
+  if (options.fullView) {
+    top += obj.clientHeight
+  }
 
   while (obj.offsetParent) {
     obj = obj.offsetParent
@@ -87,7 +120,3 @@ function calcHeight(obj) {
 
 export default useOnView
 ```
-
-## License
-
-MIT © [JustinHorn](https://github.com/JustinHorn)

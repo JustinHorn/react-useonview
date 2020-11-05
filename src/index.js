@@ -1,15 +1,24 @@
 import { useEffect, useRef } from 'react'
 
-const useOnView = (doSth) => {
+const useOnView = (
+  doSth,
+  options = {},
+  condition = () => {
+    return true
+  }
+) => {
   const viewTrigger = useRef()
 
   useEffect(() => {
     const func = function (e) {
       if (viewTrigger.current) {
-        const pageSize = window.innerHeight + window.pageYOffset
-        const heightOfObj = calcHeight(viewTrigger.current)
+        const pageHeightLocation = window.innerHeight + window.pageYOffset
+        const objectPageHeight = calcHeight(viewTrigger.current, options)
 
-        if (heightOfObj <= pageSize) {
+        if (
+          objectPageHeight <= pageHeightLocation &&
+          condition(objectPageHeight, pageHeightLocation)
+        ) {
           doSth()
         }
       }
@@ -22,8 +31,12 @@ const useOnView = (doSth) => {
   return viewTrigger
 }
 
-function calcHeight(obj) {
-  let top = obj.offsetTop + obj.clientHeight
+function calcHeight(obj, options) {
+  let top = obj.offsetTop
+
+  if (options.fullView) {
+    top += obj.clientHeight
+  }
 
   while (obj.offsetParent) {
     obj = obj.offsetParent

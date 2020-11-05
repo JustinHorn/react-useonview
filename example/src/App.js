@@ -5,7 +5,7 @@ import useOnView from 'react-useonview'
 const App = () => {
   const [visible, setVisible] = useState(false)
 
-  const trigger = useOnView(() => setVisible(true))
+  const trigger = useOnView(() => setVisible(true), { fullView: false })
 
   return (
     <div>
