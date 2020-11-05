@@ -60,9 +60,9 @@ const App = () => {
 
 ### options
 
-| name     | values  | default | description                                                      |
-| -------- | ------- | ------- | ---------------------------------------------------------------- |
-| fullView | boolean | false   | does the element needs to be fully loaded or only the beginning? |
+| name     | values  | default | description                                                                     |
+| -------- | ------- | ------- | ------------------------------------------------------------------------------- |
+| fullView | boolean | false   | should doSth be triggered at first contact or when the element is in full view? |
 
 ## License
 
