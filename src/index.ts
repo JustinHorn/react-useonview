@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
  *
  * @returns viewTrigger - a useRef<HTMLElement>() ref
  */
-const useOnView = (doSth: () => void, fullView?: boolean) => {
+const useOnView = (doSth: () => void, fullView?: boolean): React.Ref<any> => {
   const viewTrigger = useRef<HTMLElement>();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const useOnView = (doSth: () => void, fullView?: boolean) => {
     return () => window.removeEventListener('scroll', func);
   }, [doSth]);
 
-  return viewTrigger;
+  return viewTrigger as React.Ref<any>;
 };
 
 function calcHeight(obj: HTMLElement, fullView?: boolean) {

@@ -1,6 +1,6 @@
 {
   "name": "react-useonview",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A react hook that returns a ref and does sth. when the element attached to that ref is scrolled into view.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
