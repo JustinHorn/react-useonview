@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react';
 
 /**
  *  @param doSth - function triggered when HTML element  has been scrolled in to view
- *  @param options - set fullView:false | true to decided whether the full object shall have been scrolled into view until the funciton is triggered
- *  @param condition - condition that is triggered on view height chance/scroll use it to stop calling doSth when it has been called once
+ *  @param fullView - set fullView:false | true to decided whether the full object shall have been scrolled into view until the function is triggered
  *
  * @returns viewTrigger - a useRef<HTMLElement>() ref
  */
